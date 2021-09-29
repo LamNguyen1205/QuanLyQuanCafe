@@ -5,10 +5,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Menu = QuanLyQuanCafe.DTO.Menu;
 
 namespace QuanLyQuanCafe
 {
@@ -30,7 +32,8 @@ namespace QuanLyQuanCafe
             {
                 Button btn = new Button() { Width = TableDAO.TableWidth, Height = TableDAO.TableHeight };
                 btn.Text = item.Name + Environment.NewLine + item.Status;
-
+                btn.Click += btn_Click;
+                btn.Tag = item;
                 switch (item.Status)
                 {
                     case "Trống":
@@ -45,9 +48,33 @@ namespace QuanLyQuanCafe
             }
         }
         #endregion
+        void ShowBill(int id)
+        {
+            lsvBill.Items.Clear();
+            List<DTO.Menu> lstMenu = MenuDAO.Instance.GetListMenuByTable(id);
+            float totalPrice = 0;
 
+            foreach (Menu item in lstMenu)
+            {
+                ListViewItem lstvItem = new ListViewItem(item.FoodName.ToString());
+                lstvItem.SubItems.Add(item.Count.ToString());
+                lstvItem.SubItems.Add(item.Price.ToString());
+                lstvItem.SubItems.Add(item.TotalPrice.ToString());
+                totalPrice += item.TotalPrice;
+
+                lsvBill.Items.Add(lstvItem);
+            }
+            CultureInfo culture = new CultureInfo("vi-VN");
+
+            tbxTotalPrice.Text = totalPrice.ToString("c",culture);
+        }
 
         #region Events
+        void btn_Click(object sender, EventArgs e)
+        {
+            int tableID = ((sender as Button).Tag as Table).ID;
+            ShowBill(tableID);
+        }
         private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
