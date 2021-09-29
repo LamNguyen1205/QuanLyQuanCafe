@@ -56,8 +56,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO\AccountDAO.cs" />
+    <Compile Include="DAO\BillDAO.cs" />
+    <Compile Include="DAO\BillInforDAO.cs" />
     <Compile Include="DAO\DataProvider.cs" />
+    <Compile Include="DAO\MenuDAO.cs" />
     <Compile Include="DAO\TableDAO.cs" />
+    <Compile Include="DTO\Bill.cs" />
+    <Compile Include="DTO\BillInfor.cs" />
+    <Compile Include="DTO\Menu.cs" />
     <Compile Include="DTO\Table.cs" />
     <Compile Include="fAccountProfile.cs">
       <SubType>Form</SubType>
@@ -93,6 +99,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fLogin.resx">
       <DependentUpon>fLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fTableManager.resx">
+      <DependentUpon>fTableManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
